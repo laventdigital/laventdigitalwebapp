@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Manrope:wght@400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+:root {
+  --bg: #0A0A0A;
+  --orange: #FF6B1A;
+  --orange-light: #FF8C42;
+  --orange-glow: rgba(255, 107, 26, 0.35);
+  --orange-dim: rgba(255, 107, 26, 0.12);
+  --text: #F5F0EB;
+  --text-dim: rgba(245, 240, 235, 0.5);
+  --card-bg: rgba(255, 255, 255, 0.04);
+  --card-border: rgba(255, 255, 255, 0.06);
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+html, body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Manrope', sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.tg-app {
+  width: 100%;
+  max-width: 430px;
+  margin: 0 auto;
+  padding: 0 20px;
+  padding-top: calc(var(--safe-top) + 16px);
+  padding-bottom: calc(var(--safe-bottom) + 32px);
+  position: relative;
+}
+
+/* ========== HERO ========== */
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 32px;
+  padding-bottom: 40px;
+}
+
+.hero-glow {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--orange) 0%, rgba(255, 107, 26, 0.4) 40%, rgba(255, 107, 26, 0.08) 70%, transparent 100%);
+  filter: blur(8px);
+  animation: glowPulse 4s ease-in-out infinite;
+  z-index: 0;
+}
+
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.7; transform: translateX(-50%) scale(1); }
+  50% { opacity: 1; transform: translateX(-50%) scale(1.06); }
+}
+
+.hero-avatar {
+  position: relative;
+  z-index: 1;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--orange) 0%, #CC4400 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 60px var(--orange-glow), 0 0 120px rgba(255, 107, 26, 0.15);
+  animation: heroIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  overflow: hidden;
+}
+
+.hero-avatar::before {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background: var(--bg);
+}
+
+.hero-initials {
+  position: relative;
+  z-index: 1;
+  font-family: 'Unbounded', sans-serif;
+  font-weight: 900;
+  font-size: 48px;
+  color: var(--orange);
+  letter-spacing: -2px;
+}
+
+@keyframes heroIn {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.hero-name {
+  font-family: 'Unbounded', sans-serif;
+  font-weight: 900;
+  font-size: 28px;
+  margin-top: 24px;
+  text-align: center;
+  line-height: 1.15;
+  animation: fadeUp 0.6s 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.hero-name .accent {
+  color: var(--orange);
+}
+
+.hero-title {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-top: 12px;
+  text-align: center;
+  animation: fadeUp 0.6s 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.hero-tagline {
+  font-size: 15px;
+  line-height: 1.6;
+  color: rgba(245, 240, 235, 0.65);
+  text-align: center;
+  margin-top: 20px;
+  max-width: 320px;
+  animation: fadeUp 0.6s 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.hero-tagline strong {
+  color: var(--text);
+  font-weight: 700;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ========== DIVIDER ========== */
+.divider {
+  width: 40px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--orange), transparent);
+  margin: 0 auto 36px;
+  border-radius: 1px;
+}
+
+/* ========== SECTION TITLE ========== */
+.section-label {
+  font-family: 'Unbounded', sans-serif;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: fadeUp 0.6s 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.section-label::before {
+  content: '';
+  width: 16px;
+  height: 1.5px;
+  background: var(--orange);
+  border-radius: 1px;
+}
+
+/* ========== NAV GRID ========== */
+.nav-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.nav-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 20px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+  color: var(--text);
+  overflow: hidden;
+  animation: cardIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.nav-card:nth-child(1) { animation-delay: 0.65s; }
+.nav-card:nth-child(2) { animation-delay: 0.75s; }
+.nav-card:nth-child(3) { animation-delay: 0.85s; }
+.nav-card:nth-child(4) { animation-delay: 0.95s; }
+.nav-card:nth-child(5) { animation-delay: 1.05s; }
+
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.nav-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  background: radial-gradient(ellipse at 0% 50%, var(--orange-dim), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.nav-card:active {
+  transform: scale(0.97);
+  border-color: rgba(255, 107, 26, 0.25);
+}
+
+.nav-card:active::before {
+  opacity: 1;
+}
+
+.nav-icon {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--orange-dim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+  transition: background 0.35s ease;
+}
+
+.nav-card:active .nav-icon {
+  background: rgba(255, 107, 26, 0.25);
+}
+
+.nav-icon svg {
+  width: 22px;
+  height: 22px;
+  color: var(--orange);
+}
+
+.nav-content {
+  flex: 1;
+  min-width: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.nav-label {
+  font-family: 'Unbounded', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.3;
+  margin-bottom: 3px;
+}
+
+.nav-desc {
+  font-size: 12.5px;
+  color: var(--text-dim);
+  line-height: 1.4;
+}
+
+.nav-arrow {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  color: rgba(255, 255, 255, 0.2);
+  position: relative;
+  z-index: 1;
+  transition: color 0.35s, transform 0.35s;
+}
+
+.nav-card:active .nav-arrow {
+  color: var(--orange);
+  transform: translateX(3px);
+}
+
+/* ========== FEATURED CARD (big) ========== */
+.featured-card {
+  position: relative;
+  padding: 28px 24px;
+  background: linear-gradient(145deg, rgba(255, 107, 26, 0.1) 0%, var(--card-bg) 100%);
+  border: 1px solid rgba(255, 107, 26, 0.15);
+  border-radius: 20px;
+  margin-bottom: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: cardIn 0.5s 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.featured-card::after {
+  content: '';
+  position: absolute;
+  top: -40%;
+  right: -20%;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 107, 26, 0.15), transparent 70%);
+  pointer-events: none;
+}
+
+.featured-card:active {
+  transform: scale(0.98);
+  border-color: rgba(255, 107, 26, 0.35);
+}
+
+.featured-emoji {
+  font-size: 32px;
+  margin-bottom: 14px;
+}
+
+.featured-title {
+  font-family: 'Unbounded', sans-serif;
+  font-weight: 900;
+  font-size: 18px;
+  line-height: 1.3;
+  margin-bottom: 8px;
+  position: relative;
+  z-index: 1;
+}
+
+.featured-title .accent {
+  color: var(--orange);
+}
+
+.featured-desc {
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: rgba(245, 240, 235, 0.6);
+  position: relative;
+  z-index: 1;
+}
+
+/* ========== FOOTER ========== */
+.footer {
+  margin-top: 40px;
+  padding: 24px 0;
+  text-align: center;
+  animation: fadeUp 0.6s 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.footer-line {
+  width: 32px;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent, var(--orange-dim), transparent);
+  margin: 0 auto 16px;
+}
+
+.footer-text {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.footer-text .dot {
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  background: var(--orange);
+  border-radius: 50%;
+  vertical-align: middle;
+  margin: 0 8px;
+}
+
+/* ========== GRAIN OVERLAY ========== */
+.grain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 128px 128px;
+}
+
+/* ========== AMBIENT BG ========== */
+.ambient-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.ambient-bg::before {
+  content: '';
+  position: absolute;
+  bottom: -30%;
+  left: -20%;
+  width: 70%;
+  height: 60%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 107, 26, 0.04), transparent 70%);
+}
+
+.ambient-bg::after {
+  content: '';
+  position: absolute;
+  top: -10%;
+  right: -30%;
+  width: 50%;
+  height: 50%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 107, 26, 0.03), transparent 70%);
+}
+
+/* ========== SCROLLBAR ========== */
+::-webkit-scrollbar { width: 0; }
+</style>
+</head>
+<body>
+
+<div class="ambient-bg"></div>
+<div class="grain"></div>
+
+<div class="tg-app">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-avatar">
+      <span class="hero-initials">R</span>
+    </div>
+    <h1 class="hero-name">Руслан<br><span class="accent">Метрика</span></h1>
+    <p class="hero-title">Commercial Director</p>
+    <p class="hero-tagline">Строю <strong>коммерческие системы</strong>, которые продают. Аналитика, перформанс, продажи — без воды.</p>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- FEATURED -->
+  <div class="featured-card">
+    <div class="featured-emoji">🧠</div>
+    <div class="featured-title">Не читай —<br><span class="accent">думай вместе.</span></div>
+    <div class="featured-desc">Блог о системном мышлении в коммерции. Реальные кейсы, инструменты, фреймворки.</div>
+  </div>
+
+  <!-- NAV -->
+  <div class="section-label">Разделы</div>
+
+  <div class="nav-grid">
+
+    <!-- Аналитика -->
+    <a class="nav-card" href="#analytics">
+      <div class="nav-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 3v18h18"/><path d="M7 16l4-8 4 4 5-8"/>
+        </svg>
+      </div>
+      <div class="nav-content">
+        <div class="nav-label">Аналитика</div>
+        <div class="nav-desc">Дашборды, метрики, CRM-отчёты</div>
+      </div>
+      <svg class="nav-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+    </a>
+
+    <!-- Инсайты мышления -->
+    <a class="nav-card" href="#insights">
+      <div class="nav-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41"/>
+        </svg>
+      </div>
+      <div class="nav-content">
+        <div class="nav-label">Инсайты мышления</div>
+        <div class="nav-desc">Ментальные модели, фреймворки</div>
+      </div>
+      <svg class="nav-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+    </a>
+
+    <!-- Перформанс маркетинг -->
+    <a class="nav-card" href="#performance">
+      <div class="nav-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+        </svg>
+      </div>
+      <div class="nav-content">
+        <div class="nav-label">Перформанс</div>
+        <div class="nav-desc">Трафик, конверсии, unit-экономика</div>
+      </div>
+      <svg class="nav-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+    </a>
+
+    <!-- Продажи -->
+    <a class="nav-card" href="#sales">
+      <div class="nav-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+        </svg>
+      </div>
+      <div class="nav-content">
+        <div class="nav-label">Продажи</div>
+        <div class="nav-desc">Скрипты, воронки, OKR отдела</div>
+      </div>
+      <svg class="nav-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+    </a>
+
+    <!-- Построение коммерческого отдела -->
+    <a class="nav-card" href="#commercial">
+      <div class="nav-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+      </div>
+      <div class="nav-content">
+        <div class="nav-label">Коммерческий отдел</div>
+        <div class="nav-desc">Структура, найм, мотивация</div>
+      </div>
+      <svg class="nav-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+    </a>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-line"></div>
+    <div class="footer-text">Metrica<span class="dot"></span>2026</div>
+  </footer>
+
+</div>
+
+</body>
+</html>
